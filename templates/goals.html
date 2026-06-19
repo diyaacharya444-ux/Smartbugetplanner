@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head"><div><p class="eyebrow">Savings</p><h1>Goal Tracker</h1></div></section>
+<section class="two-col">
+  <form class="glass-panel stack-form" method="post">
+    <h2>Create Goal</h2>
+    <label>Goal Name<input class="form-control" name="name" required></label>
+    <label>Target Amount<input class="form-control" type="number" step="0.01" name="target_amount" required></label>
+    <label>Current Saved Amount<input class="form-control" type="number" step="0.01" name="current_amount" value="0"></label>
+    <label>Deadline<input class="form-control" type="date" name="deadline"></label>
+    <label>Notes<textarea class="form-control" name="notes"></textarea></label>
+    <button class="btn btn-primary">Save Goal</button>
+  </form>
+  <div class="goal-grid">
+    {% for goal in goals %}
+    <article class="glass-panel goal-card">
+      <div class="section-title"><h2>{{ goal.name }}</h2><form method="post" action="{{ url_for('main.delete_goal', goal_id=goal.id) }}"><button class="icon-btn"><i class="fa-solid fa-trash"></i></button></form></div>
+      <strong>{{ symbol }}{{ goal.current_amount|round(2) }} of {{ symbol }}{{ goal.target_amount|round(2) }}</strong>
+      <div class="progress"><span style="width: {{ goal.percent }}%"></span></div>
+      <p>{{ goal.percent }}% Complete · {{ symbol }}{{ goal.remaining|round(2) }} remaining</p>
+      <small>{{ goal.deadline or "No deadline" }} {{ goal.notes }}</small>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

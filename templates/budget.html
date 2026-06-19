@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head"><div><p class="eyebrow">{{ month }}</p><h1>Automatic Budget Distribution</h1></div></section>
+<form class="glass-panel" method="post">
+  <input type="hidden" name="month" value="{{ month }}">
+  <div class="section-title"><h2>Category Percentages</h2><span>Total: {{ total_pct }}%</span></div>
+  <div class="allocation-grid">
+    {% for row in rows %}
+    <label class="allocation-edit">
+      <span><i class="fa-solid {{ row.category.icon }}"></i> {{ row.category.name }}</span>
+      <input class="form-control" type="number" step="0.01" name="pct_{{ row.category.id }}" value="{{ row.percentage }}">
+      <strong>{{ symbol }}{{ row.allocated_amount|round(2) }}</strong>
+      <button type="button" class="copy-btn" data-copy="{{ row.category.name }} - {{ symbol }}{{ row.allocated_amount|round(2) }}">Copy Amount</button>
+    </label>
+    {% endfor %}
+  </div>
+  <button class="btn btn-primary mt-3">Recalculate</button>
+</form>
+{% endblock %}
