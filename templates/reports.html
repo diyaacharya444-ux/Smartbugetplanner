@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head"><div><p class="eyebrow">{{ year }}</p><h1>Reports</h1></div><div class="button-row"><a class="btn btn-outline-primary" href="{{ url_for('main.export_reports', fmt='csv') }}">Export CSV</a><a class="btn btn-outline-primary" href="{{ url_for('main.export_reports', fmt='pdf') }}">Export PDF</a></div></section>
+<section class="dashboard-grid">
+  <div class="glass-panel chart-card wide"><h2>Monthly Trend Graph</h2><canvas id="monthlyTrend"></canvas></div>
+  <div class="glass-panel chart-card"><h2>Savings Growth</h2><canvas id="savingsGrowth"></canvas></div>
+  <div class="glass-panel table-card">
+    <h2>Monthly Report</h2>
+    <table class="table app-table"><thead><tr><th>Month</th><th>Income</th><th>Expenses</th></tr></thead><tbody>{% for row in monthly %}<tr><td>{{ row.month }}</td><td>{{ row.income|round(2) }}</td><td>{{ row.expenses|round(2) }}</td></tr>{% endfor %}</tbody></table>
+  </div>
+  <div class="glass-panel table-card">
+    <h2>Savings Report</h2>
+    {% for goal in goals %}<div class="list-row"><div><strong>{{ goal.name }}</strong><small>{{ goal.percent }}% complete</small></div><strong>{{ goal.current_amount|round(2) }}/{{ goal.target_amount|round(2) }}</strong></div>{% endfor %}
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script>loadReportCharts();</script>{% endblock %}

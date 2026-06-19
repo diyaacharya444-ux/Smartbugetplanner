@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head"><div><p class="eyebrow">OCR</p><h1>Receipt Scanner</h1></div></section>
+<section class="two-col">
+  <form class="glass-panel stack-form" method="post" enctype="multipart/form-data">
+    <h2>Upload Receipt</h2>
+    <label>JPG, PNG, or PDF<input class="form-control" type="file" name="receipt" accept=".jpg,.jpeg,.png,.pdf" required></label>
+    <button class="btn btn-primary">Extract Details</button>
+    <p class="muted small">OCR uses OpenCV, pytesseract, and your local Tesseract installation when available.</p>
+  </form>
+  {% if extracted %}
+  <form class="glass-panel stack-form" method="post">
+    <h2>Confirm Expense</h2>
+    <label>Amount<input class="form-control" type="number" step="0.01" name="amount" value="{{ extracted.amount }}" required></label>
+    <label>Merchant<input class="form-control" name="merchant" value="{{ extracted.merchant }}"></label>
+    <label>Category<input class="form-control" name="category" value="{{ extracted.category }}"></label>
+    <label>Date<input class="form-control" type="date" name="expense_date" value="{{ today }}"></label>
+    <label>Description<input class="form-control" name="description" value="Scanned receipt"></label>
+    <textarea class="form-control ocr-text" readonly>{{ extracted.text }}</textarea>
+    <button class="btn btn-primary">Save Scanned Expense</button>
+  </form>
+  {% endif %}
+</section>
+{% endblock %}

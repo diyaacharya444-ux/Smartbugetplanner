@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head"><div><p class="eyebrow">Account</p><h1>User Profile</h1></div></section>
+<form class="glass-panel stack-form narrow" method="post">
+  <label>Name<input class="form-control" name="name" value="{{ current_user.name }}" required></label>
+  <label>Email<input class="form-control" value="{{ current_user.email }}" disabled></label>
+  <label>New Password<input class="form-control" type="password" name="password" minlength="6" placeholder="Leave blank to keep current password"></label>
+  <button class="btn btn-primary">Update Profile</button>
+</form>
+{% endblock %}
