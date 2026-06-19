@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Login - Smart Budget Planner{% endblock %}
+{% block content %}
+<section class="auth-card glass-panel">
+  <div>
+    <p class="eyebrow">Smart Budget Planner</p>
+    <h1>Welcome back</h1>
+    <p class="muted">Track income, budgets, goals, receipts, alerts, and reports from one financial dashboard.</p>
+  </div>
+  <form method="post" class="stack-form">
+    <label>Email<input class="form-control" type="email" name="email" required></label>
+    <label>Password<input class="form-control" type="password" name="password" required></label>
+    <button class="btn btn-primary w-100">Login</button>
+    <p class="small">No account? <a href="{{ url_for('auth.register') }}">Register</a></p>
+  </form>
+</section>
+{% endblock %}
